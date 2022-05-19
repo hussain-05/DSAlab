@@ -151,3 +151,489 @@ class Main
         dfs(node);
     }
 }
+
+#HeapSort
+import java.util.*;
+import java.io.*;
+public class Main {
+    public void sort(String arr[])
+    {
+        int n = arr.length;
+        for (int i = n / 2 - 1; i >= 0; i--)
+            heapify(arr, n, i);
+        for (int i = n - 1; i > 0; i--) {
+            String temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+            heapify(arr, i, 0);
+        }
+    }
+    void heapify(String arr[], int n, int i)
+    {
+        int largest = i; 
+        int l = 2 * i + 1; 
+        int r = 2 * i + 2; 
+        if (l < n && arr[l].compareTo(arr[largest]) > 0)
+            largest = l;
+ 
+        if (r < n && arr[r].compareTo(arr[largest]) > 0)
+            largest = r;
+ 
+        if (largest != i) {
+            String swap = arr[i];
+            arr[i] = arr[largest];
+            arr[largest] = swap;
+            printArray(arr);
+            heapify(arr, n, largest);
+        }
+    }
+ 
+    static void printArray(String arr[])
+    {
+        int n = arr.length;
+        for (int i = 0; i < n; ++i)
+            System.out.print(arr[i] + " ");
+        System.out.println();
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        Scanner readMyFile = new Scanner(new File("hsortin.txt"));
+        String data = readMyFile.nextLine();
+        String[] arr = data.split(", ");
+        int n = arr.length;
+ 
+        Main ob = new Main();
+        System.out.println("Array before sorting:");
+        printArray(arr);
+        System.out.println("Steps of sorting:");
+        ob.sort(arr);
+ 
+        System.out.println("Array after sorting:");
+        printArray(arr);
+    }
+}
+    
+#Heap
+mport java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+class HeapSort{
+int size=0;
+int maxsize;
+String[] Heap;
+public void definesize(int s){
+this.maxsize=s;
+Heap=new String[maxsize+1];
+Heap[0]="a";
+}
+
+public void insert(String x){
+size++;
+Heap[size]=x;
+swim(size);
+}
+public void swim(int k){
+int i=Heap[k].compareTo(Heap[k/2]);
+while(k>1 && i<0){
+String temp=Heap[k];
+Heap[k]=Heap[k/2];
+Heap[k/2]=temp;
+k=k/2;
+i=Heap[k].compareTo(Heap[k/2]);
+}
+}
+public void print()
+{
+for (int i = 1; i <= size / 2; i++) {
+
+System.out.print(" PARENT : " + Heap[i] + " LEFT CHILD : "
++ Heap[2 * i] + " RIGHT CHILD :" + Heap[2 * i + 1]);
+System.out.println();
+}
+}
+
+}
+public class Main {
+public static void main(String[] args) throws FileNotFoundException {
+File file=new File("C:\\Users\\mayank\\OneDrive\\Desktop\\New Text
+Document.txt");
+Scanner sc=new Scanner(file);
+HeapSort obj=new HeapSort();
+obj.definesize(100);
+String data=sc.nextLine();
+String[] nodes=data.split(",");
+for(String s: nodes){
+obj.insert(s);
+}
+obj.print();
+
+}
+}
+
+#BST
+import java.util.*;
+import java.io.*;
+class BST_class { 
+    class Node { 
+        String key; 
+        String name;
+        float CGPA;
+        Node left, right; 
+   
+        public Node(String data, String n, float c){ 
+            key = data; 
+            name = n;
+            CGPA = c;
+            left = right = null; 
+        } 
+    } 
+    Node root; 
+  
+    BST_class(){ 
+        root = null; 
+    } 
+    
+    String minValue(Node root)  { 
+        String minval = root.key; 
+        while (root.left != null)  { 
+            minval = root.left.key; 
+            root = root.left; 
+        } 
+        return minval; 
+    } 
+   
+    void insert(String key, String name, float c)  { 
+        root = insert_Recursive(root, key, name, c); 
+    } 
+   
+    Node insert_Recursive(Node root, String key, String name, float c) { 
+        if (root == null) { 
+            root = new Node(key, name, c); 
+            return root; 
+        } 
+        if (key.compareTo(root.key)<0)     
+            root.left = insert_Recursive(root.left, key, name, c); 
+        else if (key.compareTo(root.key)>0)    
+            root.right = insert_Recursive(root.right, key, name , c); 
+        return root; 
+    } 
+ 
+
+    void inorder() { 
+        inorder_Recursive(root); 
+    } 
+   
+    void inorder_Recursive(Node root) { 
+        if (root != null) { 
+            inorder_Recursive(root.left); 
+            System.out.print(root.key + " "); 
+            System.out.print(root.name + " "); 
+            System.out.println(root.CGPA + " "); 
+            inorder_Recursive(root.right); 
+        } 
+    } 
+    
+    void postorder() { 
+        postorder_Recursive(root); 
+    } 
+   
+    void postorder_Recursive(Node root) { 
+        if (root != null) { 
+            postorder_Recursive(root.left); 
+            postorder_Recursive(root.right); 
+            System.out.print(root.key + " "); 
+            System.out.print(root.name + " "); 
+            System.out.println(root.CGPA + " "); 
+            
+        } 
+    }
+    
+    void preorder() { 
+        preorder_Recursive(root); 
+    } 
+   
+    void preorder_Recursive(Node root) { 
+        if (root != null) { 
+            System.out.print(root.key + " "); 
+            System.out.print(root.name + " "); 
+            System.out.println(root.CGPA + " "); 
+            preorder_Recursive(root.left); 
+            preorder_Recursive(root.right); 
+        } 
+    }
+}
+class Main{
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner readMyFile = new Scanner(new File("source.txt"));
+        BST_class bst = new BST_class(); 
+        
+        while(readMyFile.hasNext()){
+		    String key = readMyFile.next();
+		    String name = readMyFile.next();
+		    float CGPA = readMyFile.nextFloat();
+		    bst.insert(key, name, CGPA); 
+		}
+        System.out.println("\n\nIn order traversal:"); 
+        bst.inorder(); 
+        System.out.println("\n\nPre order traversal:"); 
+        bst.preorder(); 
+        System.out.println("\n\nPost order traversal:"); 
+        bst.postorder(); 
+        
+     } 
+}
+
+#MergeSort
+import java.util.*;
+import java.lang.Math;
+import java.io.*;
+public class Main
+{
+    private static void mergeSort(int[] array, int low, int high) 
+    {
+        if (high <= low) 
+            return;
+        int mid = (low + high) / 2;
+        mergeSort(array, low, mid);
+        mergeSort(array, mid + 1, high);
+        merge(array, low, mid, high);
+    }
+    
+    private static void merge(int[] array, int low, int mid, int high) 
+    {
+        int leftArray[] = new int[mid - low + 1];
+        int rightArray[] = new int[high - mid];
+        for (int i = 0; i < leftArray.length; i++)
+            leftArray[i] = array[low + i];
+        for (int i = 0; i < rightArray.length; i++)
+            rightArray[i] = array[mid + i + 1];
+        int leftIndex = 0;
+        int rightIndex = 0;
+        for (int i = low; i < high + 1; i++)
+        {
+            if (leftIndex < leftArray.length && rightIndex < rightArray.length) 
+            {
+                if (leftArray[leftIndex] >= rightArray[rightIndex]) 
+                {
+                    array[i] = leftArray[leftIndex];
+                    leftIndex++;
+                }
+                else
+                {
+                    array[i] = rightArray[rightIndex];
+                    rightIndex++;
+                }
+            }
+            else if (leftIndex < leftArray.length) 
+            {
+                array[i] = leftArray[leftIndex];
+                leftIndex++;
+            } 
+            else if (rightIndex < rightArray.length) 
+            {
+                array[i] = rightArray[rightIndex];
+                rightIndex++;
+            }
+        }
+    }
+    
+    public static void main (String args[]) throws FileNotFoundException{
+        PrintWriter writeToMyFile = new PrintWriter(new File("mergeout.txt"));
+        int max = 2147483647;
+        int min = 1;
+        int[] arr = new int[10000];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (int)(Math.random() * (max - min + 1) + min);
+        }
+        long startTime = System.nanoTime();
+		mergeSort(arr, 0, arr.length - 1);
+		long endTime = System.nanoTime() - startTime;
+		System.out.println("Execution Time(nano seconds): "+endTime);
+		for (int i = 0; i < arr.length; i++) {
+            writeToMyFile.format("%d%n", arr[i]); 
+        }
+    writeToMyFile.close();
+    }
+}
+
+#DLL
+import java.io.*;
+import java.util.*;
+
+class Student {
+
+    String idno;
+    String name;
+    String dob;
+    float cgpa;
+
+    public Student(String id, String n, String d, float c){
+        idno = id;
+        name = n;
+        dob = d;
+        cgpa = c;
+    }
+}
+
+class Node{
+    Node next;
+    Node prev;
+    Student element;
+
+    public Node(Student s){
+        element = s;
+    }
+}
+
+class DLL{
+    Node head=null;
+    Node tail = null;
+
+    public void addLast(Student s){
+        Node n = new Node(s);
+        if (head==null){
+            head=n;
+            tail=n;
+        }
+        else {
+            tail.next = n;
+            n.prev = tail;
+            tail = n;
+        }
+    }
+
+    public void remove(int p){
+        int pos=0;
+        Node n = head;
+        while (n.next!=null){
+            if (pos==p){
+                n.prev.next=n.next;
+                n.next.prev=n.prev;
+                n=null;
+                break;
+            }
+            pos+=1;
+            n=n.next;
+        }
+    }
+
+    public void printAsc(Node h){
+        Node n = h;
+        while (n.next!=null){
+            System.out.format("%s %s %s %f\n", n.element.idno, n.element.name, n.element.dob, n.element.cgpa);
+            n=n.next;
+        }
+        System.out.format("%s %s %s %f\n", n.element.idno, n.element.name, n.element.dob, n.element.cgpa);
+    }
+
+    public void printDesc(Node t){
+        Node n = t;
+        while (n.prev!=null){
+            System.out.format("%s %s %s %f\n", n.element.idno, n.element.name, n.element.dob, n.element.cgpa);
+            n=n.prev;
+        }
+        System.out.format("%s %s %s %f\n", n.element.idno, n.element.name, n.element.dob, n.element.cgpa);
+    }
+}
+public class DLLpractice {
+    public static void main(String[] args) throws FileNotFoundException {
+        DLL dd = new DLL();
+        Scanner readMyFile = new Scanner(new File("/Users/hussain/IdeaProjects/DLLPractice/src/facin.dat"));
+        PrintWriter writeFile = new PrintWriter(new File("/Users/hussain/IdeaProjects/DLLPractice/src/facout.dat"));
+
+        while (readMyFile.hasNext()){
+            String id = readMyFile.next();
+            String name = readMyFile.next();
+            String dob = readMyFile.next();
+            float cgpa = readMyFile.nextFloat();
+            dd.addLast(new Student(id, name, dob, cgpa));
+        }
+
+        dd.printAsc(dd.head);
+        dd.remove(2);
+
+        System.out.println("\n");
+        dd.printDesc(dd.tail);
+
+        readMyFile.close();
+        writeFile.close();
+    }
+}
+
+#Search
+import java.util.*;
+
+class Linear{
+
+    public int linear(int target, int[] arr){
+        for(int i=0; i<arr.length; i++){
+            if(arr[i]==target)
+                return i;
+        }
+        return -1;
+    }
+
+}
+
+class BinarySearch{
+
+    public int binary(int target, int[] arr){
+        int l=0, r= arr.length-1, m;
+        while (l<=r){
+            m=(l+r)/2;
+            if(target==arr[m])
+                return m;
+            else if(target<arr[m])
+                r=m-1;
+            else
+                l=m+1;
+        }
+        return -1;
+    }
+
+}
+
+
+public class SearchPractice {
+    public static void main(String[] args){
+        int[] arr = new int[10000];
+        for (int i=0; i<10000; i++){
+            arr[i]=i;
+        }
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Enter a number to search : ");
+        int target = scan.nextInt();
+
+        Linear l = new Linear();
+        BinarySearch b = new BinarySearch();
+
+        System.out.println("Linear search output : "+l.linear(target, arr));
+        System.out.println("Binary search output : "+b.binary(target, arr));
+    }
+}
+
+#Circular Queue
+- Algorithm size()
+return (N-f+r) mod N
+- Algorithm isEmpty()
+if f=r
+    return true
+return false
+- Algorithm front()
+if isEmpty() then
+    throw QueueEmptyException
+return Q[f]
+- Algorithm dequeue()
+if isEmpty() then
+    throw QueueEmptyException
+o ← Q[f]
+Q[f] ← null
+f ← (f+1) mod N
+return o
+- Algorithm enqueue(Object o)
+if size() = N-1 then
+    throw QueueFullException
+Q[r] <- o
+r <- (r+1) mod N
